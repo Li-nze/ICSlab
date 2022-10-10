@@ -11,12 +11,14 @@ uint64_t multimod(uint64_t a, uint64_t b, uint64_t m) {
 const uint64_t upb=0x8000000000000000;
 uint64_t umod=0xffffffffffffffff;
 static uint64_t mod(uint64_t a, uint64_t m){
+	//printf("%lu %lu\n", a, m);
 	if(a<m){return a;}
 	while(a<0){a+=m;}
 	while(a>=m){
+		//printf("a\n");
 		uint64_t mp=m;
 		while(mp<upb && mp<a){mp<<=1;}
-		if(mp>=a){mp>>=1;}
+		if(mp>=a && mp!=1){mp>>=1;}
 		a-=mp;
 	}
 	return a;
@@ -83,7 +85,7 @@ uint64_t multimod(uint64_t a, uint64_t b, uint64_t m){
 	}
 	return c;
 }
-/*
+
 int main(){
 	uint64_t a, b, m;
 	scanf("%lu%lu%lu", &a, &b, &m);
@@ -91,7 +93,7 @@ int main(){
 	printf("%lu\n", multimod(a, b, m));
 	return 0;
 }
-*/
+
 /*
 int main(){
 	uint64_t a=2616528784434312442, b=12802892420729404147, m=10677790085944912985;
@@ -100,7 +102,7 @@ int main(){
 	return 0;
 }
 */
-
+/*
 int main(){
 	FILE *fp=fopen("input", "r");
 	assert(fp!=NULL);
@@ -122,4 +124,4 @@ int main(){
 	printf("count: %u\n", count);
 	return 0;
 }
-
+*/

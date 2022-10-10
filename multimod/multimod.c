@@ -9,7 +9,7 @@ static uint64_t md(uint64_t a, uint64_t m){
 	while(a>=m){
 		uint64_t mp=m;
 		while(mp<upb && mp<a){mp<<=1;}
-		if(mp>=a){mp>>=1;}
+		if(mp>=a && mp!=1){mp>>=1;}
 		a-=mp;
 	}
 	return a;
