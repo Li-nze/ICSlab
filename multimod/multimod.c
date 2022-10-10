@@ -5,12 +5,15 @@
 const uint64_t upb=0x8000000000000000;
 uint64_t umd=0xffffffffffffffff;
 static uint64_t md(uint64_t a, uint64_t m){
+	if(a<m){return a;}
 	while(a<0){a+=m;}
+	int count=0;
 	while(a>=m){
 		uint64_t mp=m;
-		while(mp<upb && mp<a){mp<<=1;}
-		if(mp>=a && mp!=1){mp>>=1;}
+		while(mp<upb && mp<a){mp<<=1; ++count;}
+		if(mp>=a && mp!=1 && count>0){mp>>=1;}
 		a-=mp;
+		count=0;
 	}
 	return a;
 }

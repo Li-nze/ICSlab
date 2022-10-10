@@ -14,12 +14,14 @@ static uint64_t mod(uint64_t a, uint64_t m){
 	//printf("%lu %lu\n", a, m);
 	if(a<m){return a;}
 	while(a<0){a+=m;}
+	int count=0;
 	while(a>=m){
 		//printf("a\n");
 		uint64_t mp=m;
-		while(mp<upb && mp<a){mp<<=1;}
-		if(mp>=a && mp!=1){mp>>=1;}
+		while(mp<upb && mp<a){mp<<=1; ++count;}
+		if(mp>=a && mp!=1 && count>0){mp>>=1;}
 		a-=mp;
+		count=0;
 	}
 	return a;
 }
@@ -69,16 +71,16 @@ uint64_t multimod(uint64_t a, uint64_t b, uint64_t m){
 	if(ind!=0){
 		return ((a+b)<<(65-ind))>>(65-ind);
 	}
+	printf("%lu\n", umod);
 	umod=mod(umod, m);
 	a=mod(a, m);
-	//printf("a: %lu\n", a);
 	b=mod(b, m);
-	printf("%lu %lu %lu\n", a, b, m);
+	printf("%lu %lu %lu %lu\n", a, b, m, umod);
 	uint64_t c=0;
 	uint64_t tmp=b;
 	for(int i=0; i<64; ++i){
 		if(bit_of(a, i)==1){
-			//printf("i:%d\n", i);
+			printf("i:%d\n", i);
 			c=addmod(c, tmp, m);
 		}
 		tmp=addmod(tmp, tmp, m);
