@@ -11,6 +11,7 @@ uint64_t multimod(uint64_t a, uint64_t b, uint64_t m) {
 const uint64_t upb=0x8000000000000000;
 uint64_t umod=0xffffffffffffffff;
 static uint64_t mod(uint64_t a, uint64_t m){
+	if(a<m){return a;}
 	while(a<0){a+=m;}
 	while(a>=m){
 		uint64_t mp=m;
@@ -31,6 +32,19 @@ static uint64_t mod(uint64_t a, uint64_t m){
 	return a;
 }
 */
+static uint64_t pow2(uint64_t m){
+	if(m==0){return 0;}
+	uint64_t f=0;
+	uint64_t count=0;
+	while(m>0){
+		if(!f){++count;}
+		uint64_t a=m&1;
+		if(!f && a){f=1;}
+		if(f && a){return 0;}
+		m>>=1;
+	}
+	return count;
+}
 	
 
 static inline unsigned bit_of(uint64_t a, int i){
@@ -49,6 +63,10 @@ static uint64_t addmod(uint64_t a, uint64_t b, uint64_t m){
 }
 
 uint64_t multimod(uint64_t a, uint64_t b, uint64_t m){
+	uint64_t ind=pow2(m);
+	if(ind!=0){
+		return ((a+b)<<(65-ind))>>(65-ind);
+	}
 	umod=mod(umod, m);
 	a=mod(a, m);
 	//printf("a: %lu\n", a);

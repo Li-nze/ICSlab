@@ -14,6 +14,20 @@ static uint64_t md(uint64_t a, uint64_t m){
 	}
 	return a;
 }
+
+static uint64_t pow2(uint64_t m){
+	if(m==0){return 0;}
+	uint64_t f=0;
+	uint64_t count=0;
+	while(m>0){
+		if(!f){++count;}
+		uint64_t a=m&1;
+		if(!f && a){f=1;}
+		if(f && a){return 0;}
+		m>>=1;
+	}
+	return count;
+}
 	
 
 static inline unsigned bit_of(uint64_t a, int i){
@@ -32,6 +46,10 @@ static uint64_t addmd(uint64_t a, uint64_t b, uint64_t m){
 }
 
 uint64_t multimod(uint64_t a, uint64_t b, uint64_t m){
+	uint64_t ind=pow2(m);
+	if(ind!=0){
+		return ((a+b)<<(65-ind))>>(65-ind);
+	}
 	umd=md(umd, m);
 	a=md(a, m);
 	b=md(b, m);
