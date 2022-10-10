@@ -2,12 +2,15 @@
 #include <stdio.h>
 #include <assert.h>
 
-
+const uint64_t upb=0x8000000000000000;
 uint64_t umd=0xffffffffffffffff;
 static uint64_t md(uint64_t a, uint64_t m){
 	while(a<0){a+=m;}
 	while(a>=m){
-		a-=m;
+		uint64_t mp=m;
+		while(mp<upb && mp<a){mp<<=1;}
+		if(mp>=a){mp>>=1;}
+		a-=mp;
 	}
 	return a;
 }
