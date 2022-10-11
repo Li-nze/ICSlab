@@ -53,6 +53,7 @@ uint64_t multimod(uint64_t a, uint64_t b, uint64_t m){
 	if(ind!=0){
 		return ((a+b)<<(65-ind))>>(65-ind);
 	}
+	umod=0xffffffffffffffff;
 	umd=md(umd, m);
 	a=md(a, m);
 	b=md(b, m);

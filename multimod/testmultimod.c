@@ -71,23 +71,24 @@ uint64_t multimod(uint64_t a, uint64_t b, uint64_t m){
 	if(ind!=0){
 		return ((a+b)<<(65-ind))>>(65-ind);
 	}
-	printf("%lu\n", umod);
+	umod=0xffffffffffffffff;
+	//printf("%lu\n", umod);
 	umod=mod(umod, m);
 	a=mod(a, m);
 	b=mod(b, m);
-	printf("%lu %lu %lu %lu\n", a, b, m, umod);
+	//printf("in:%lu %lu %lu %lu\n", a, b, m, umod);
 	uint64_t c=0;
 	uint64_t tmp=b;
 	for(int i=0; i<64; ++i){
 		if(bit_of(a, i)==1){
-			printf("i:%d\n", i);
+			//printf("i:%d\n", i);
 			c=addmod(c, tmp, m);
 		}
 		tmp=addmod(tmp, tmp, m);
 	}
 	return c;
 }
-
+/*
 int main(){
 	uint64_t a, b, m;
 	scanf("%lu%lu%lu", &a, &b, &m);
@@ -95,7 +96,7 @@ int main(){
 	printf("%lu\n", multimod(a, b, m));
 	return 0;
 }
-
+*/
 /*
 int main(){
 	uint64_t a=2616528784434312442, b=12802892420729404147, m=10677790085944912985;
@@ -104,7 +105,7 @@ int main(){
 	return 0;
 }
 */
-/*
+
 int main(){
 	FILE *fp=fopen("input", "r");
 	assert(fp!=NULL);
@@ -113,12 +114,13 @@ int main(){
 	FILE *fpp=fopen("res", "w");
 	for(int i=0; i<10000; ++i){
 		assert(fscanf(fp, "%lu %lu %lu %lu", &a, &b, &m, &ans)!=EOF);
-		printf("%lu %lu %lu %lu\n", a, b, m, ans);
+		//printf("%lu %lu %lu %lu\n", a, b, m, ans);
 		uint64_t c=multimod(a, b, m);
+		//printf("my: %lu\n", c);
 		if(ans!=c){
 			++count;
-			fprintf(fpp, "%d %lu %lu %lu %lu %lu\n", i, ans, c, a, b, m);
-			printf("%d %lu %lu\n", i, ans, c);
+			fprintf(fpp, "%d %lu %lu %lu %lu %lu\n", i, c, ans, a, b, m);
+			printf("%d %lu %lu\n", i, c, ans);
 		}
 	}
 	fclose(fpp);
@@ -126,4 +128,4 @@ int main(){
 	printf("count: %u\n", count);
 	return 0;
 }
-*/
+
